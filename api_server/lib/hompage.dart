@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,8 +13,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Future fetch() async {
     // var res - http://192.168.200.102:3000/로 부터 받아들이는 값
-    var res = await http.get('http://192.168.200.102:3000/' as Uri);
-    return res.body;
+    var res = await http.get(
+        Uri.parse(
+          'http://192.168.0.18:3000/',
+        ),
+        headers: {"userHeader": "1234"});
+    return json.decode(res.body);
   }
 
   @override
@@ -25,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           future: fetch(),
           builder: (context, snap) {
             if (!snap.hasData) return const CircularProgressIndicator();
-            return Text(snap.data.toString());
+            return Text(snap.data['key'].toString());
           },
         ),
       ),
