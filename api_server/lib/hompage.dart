@@ -12,12 +12,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future fetch() async {
-    // var res - http://192.168.200.102:3000/로 부터 받아들이는 값
+    // var res - http://192.168.0.12:3000/로 부터 받아들이는 값
     var res = await http.get(
         Uri.parse(
-          'http://192.168.0.18:3000/',
+          'http://192.168.0.12:3000/',
         ),
-        headers: {"userHeader": "1234"});
+        headers: {'user-header': '1234'});
+
     return json.decode(res.body);
   }
 
